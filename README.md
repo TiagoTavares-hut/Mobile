@@ -4,7 +4,7 @@
 - Intalação e Configurção 
 -Lógica de Programação em Java(calculadora)
 
-- conseitos:
+- Conceitos:
     - classes
     - objetos
     - encapsulamento
