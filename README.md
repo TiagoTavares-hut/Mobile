@@ -10,3 +10,30 @@
     - encapsulamento
     - polimorfismo
     - herança
+
+-Instrodução a Aplicativos Mobile
+    -Tipos de Desenvolvimento:
+        -Nativo
+            -Android:
+            -IDE: Android Studio
+            -SDK: Android SDK
+            -Linguagem: Java / Kotlin
+            -Plataformas: Windows / Linux / MacOS
+        -Ios
+            -IDE: Xcode
+            -SDK: Cocoa Touch
+            -Linguagem: Swift / Objective C
+            -Plataformas: MacOS
+    -Multiplataforma
+        -React Native
+            -Linguagem: JavaScript
+            -SDK: node.js
+            -Resultado: Android / Ios / Web 
+        -Flutter (Nosso)
+            -Linguagem: Dart
+            -SDK: Flutter SDK
+            -Resultado: Android / Ios / web / Windows / Linux / MacOS / Android
+        -Ionic - (!Aplicativos Nativos)
+            -Linguagem: JavaScript
+            -SDK: node.js
+            -Resultado: Android / Ios
