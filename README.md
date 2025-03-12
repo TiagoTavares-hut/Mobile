@@ -33,7 +33,7 @@
             -Linguagem: Dart
             -SDK: Flutter SDK
             -Resultado: Android / Ios / web / Windows / Linux / MacOS / Android
-        -Ionic - (!Aplicativos Nativos)
+        -Ionic - (!Aplicativos Nativos / ! significa que nao eh nativo)
             -Linguagem: JavaScript
             -SDK: node.js
             -Resultado: Android / Ios
