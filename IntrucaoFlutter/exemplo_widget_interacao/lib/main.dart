@@ -20,6 +20,8 @@ class _TelaCadastroAppState extends State<TelaCadastroApp>{
   String _dataNascimento = '';
   double _experiencia = 0;
   bool _aceite = false; //declaracao da boolean (bool)
+  bool _senhaOculta = true;
+
   //metodos
   @override
   Widget build(BuildContext context) {
@@ -27,14 +29,15 @@ class _TelaCadastroAppState extends State<TelaCadastroApp>{
       appBar: AppBar(title: Text("Cadastro de Usuário - Exemplo Widget Interação")),
       body: Padding(
         padding: EdgeInsets.all(16),
-        child: Form(
-          key: _formKey,//validação de formulario
+        child: Form(//o formkey serve para identificar o formulario
+          key: _formKey,//e para validação de formulario
           child: Column(
             children: [
               //Campo Nome
               TextFormField(
                 decoration: InputDecoration(labelText: "Insira o Nome"),
-                validator: (value) => value!.trim().isEmpty ? "Digite um Nome" : null,//operador ternário "?"
+                //validator e onSaved serve para pegar o que foi digitado
+                validator: (value) => value!.trim().isEmpty ? "Digite um Nome" : null,//operador ternário "?" //o operador ternário é um if e else
                 onSaved: (value) => _nome = value!.trim(),
               ),
               //Campo Email o @ sera validado
@@ -45,10 +48,17 @@ class _TelaCadastroAppState extends State<TelaCadastroApp>{
               ), 
               //Campo Senha
               TextFormField(
-                decoration: InputDecoration(labelText: "Insira a Senha"),
-                obscureText: true,//ocultar a senha
-                validator: (value) => value!.trim().length>= 6 ? null : "Digite uma Senha com ao menos 6 Caracteres",
-                onSaved: (value) => _senha = value!.trim(),
+                decoration: InputDecoration(labelText: "Insira a Senha",
+                prefixIcon: IconButton(
+                  onPressed: (){
+                    setState(() {
+                      _senhaOculta = !_senhaOculta;
+                    });
+                  }, 
+                  icon: Icon(Icons.lock))),
+                obscureText: _senhaOculta,
+                validator: (value) => value!.trim().length>=6 ? null : "Digite uma Senha Válida",
+                onSaved: (value)=>_senha = value!.trim(),
               ),
               //Campo Genero
               Text("Genero"),
@@ -79,8 +89,9 @@ class _TelaCadastroAppState extends State<TelaCadastroApp>{
                   _experiencia = value;
                   
                 })),
+                SizedBox(height: 15,),
                 // aceite dos termos de uso
-                 CheckboxListTile(
+                 CheckboxListTile(//CheckboxListTile serve para criar uma caixa de seleção
                   value: _aceite,
                   title: Text("Aceito os Termos de Uso do Aplicativo"),
                   onChanged: (value)=>setState(() {
@@ -97,7 +108,21 @@ class _TelaCadastroAppState extends State<TelaCadastroApp>{
   }
 
   void _enviarFormulario(){
-
+    if(_formKey.currentState!.validate() && _aceite) {
+      _formKey.currentState!.save();
+      showDialog(
+        context: context,
+        builder: (context)=>AlertDialog(
+          title: Text("Dados do Usuário"),
+          content: Column(
+            children: [
+              Text("Nome: $_nome"),
+              Text("Email: $_email")
+              //outras informações
+            ],
+          ),
+        ));
+        }
   }
 
 }
