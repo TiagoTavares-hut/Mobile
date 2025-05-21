@@ -1,6 +1,6 @@
 class Nota{
   //atributos = colunas do BD
-  final int? id;
+  final int? id; // ? = nulo
   final String titulo;
   final String conteudo;
 
@@ -12,7 +12,7 @@ class Nota{
   //converter para objeto <=> BD
 
   //toMap objeto -> BD
-  Map<String,dynamic> toMap(){
+  Map<String,dynamic> toMap(){ //Map é uma coleção de chave e valor
     return{
       "id": id, //o id pode ser nulo ao criar
       "titulo":titulo,

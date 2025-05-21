@@ -1,6 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../models/nota_model.dart';
 class NotaDbHelper {
 
   Database? _database; //classe de conexão com o BD
@@ -33,24 +34,25 @@ class NotaDbHelper {
       // implemetar o upgrade version ()
     );
   }
-  //CRUD ( nao preciso usar sql )
-  //CREATE
-  Future<int> insertNota(Nota nota) async {
+
+  //crud ( não Preciso Usar SQL)
+  //create
+  Future<int> insertNota(Nota nota) async{ // insert ele insere
     final db = await database;
-    return db.insert(TABLE_NAME, nota.toMap());//converte a nota para modelo de BD
+    return db.insert(TABLE_NAME, nota.toMap()); //converte a nota para modelo de BD
   }
 
-  //READ
-  Future<List<Nota>> getNotas() async {
+  //read
+  Future<List<Nota>> getNotas() async{ // get ele ler
     final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query(TABLE_NAME);
-    return maps.map((e)=> Nota.fromMap(e)).toList(); // converte o mapa para uma lista de notas
+    final List<Map<String,dynamic>> maps = await db.query(TABLE_NAME);
+    return maps.map((e)=> Nota.fromMap(e)).toList();
   }
 
-  //UPDATE
-  Future<int> updateNota(Nota nota) async {
+  //update
+  Future<int> updateNota(Nota nota) async{ // update ele atualiza
     if(nota.id == null){
-      throw Exception("Nota não existe");
+      throw Exception();
     }
     final db = await database;
     return await db.update(
@@ -58,20 +60,26 @@ class NotaDbHelper {
       nota.toMap(),
       where: "id = ?",
       whereArgs: [nota.id]
-    );
+      );
   }
-  //DELETE
-  Future<int> deleteNota(int id) async {
+  //delete
+  Future<int> deleteNota(int id) async{ // delete ele deleta
     final db = await database;
     return await db.delete(
-      where: "id=?",
       TABLE_NAME,
+      where: "id=?",
       whereArgs: [id]
     );
-    }
   }
+
+
 
 
   //deleteBD
 
+
+}
+
+
+// o controllers é responsável por fazer a comunicação entre a view e o model
 
