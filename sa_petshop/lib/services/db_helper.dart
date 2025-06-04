@@ -1,7 +1,7 @@
 //clase de apoio a conexões do banco de dados
 //classe Singleton -> de objeto unico
-import 'package:flutter/material.dart';
 import 'package:path/path.dart';
+import 'package:sa_petshop/models/consulta_model.dart';
 import 'package:sa_petshop/models/pet_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
@@ -70,7 +70,6 @@ class DbHelper {
     return await db.insert("pets", pet.toMap()); //retorna o id do Pet
   }
 
-
   Future<List<Pet>> getPets() async{
     final db = await database;
     final List<Map<String,dynamic>> maps = await db.query("pets"); //receber as info do BD
@@ -80,21 +79,47 @@ class DbHelper {
 
   Future<Pet?> getPetbyId(int id) async{
     final db = await database;
-    final List<Map<String,dynamic>> maps = await db.query("pets", where: "id=?", whereArgs: [id]);
-    //se encontrar
+    final List<Map<String,dynamic>> maps = 
+      await db.query("pets", where: "id=?", whereArgs: [id]);
+    //se Encontrado
     if(maps.isNotEmpty){
-      return Pet.fromMap(maps.first); //cria o obj com 1° elemento da lista
+      return Pet.fromMap(maps.first); //cria o obj com 1º elemento da lista
     }else{
-        return null;
+      return null;
     }
   }
 
   Future<int> deletePet(int id) async{
     final db = await database;
-    return await db.delete("pets", where: "id=?", whereArgs: [id]);
+    return await db.delete("pets", where: "id=?",whereArgs: [id]);
     //deleta o pet da tabela que tenha o id igual o enviado como parâmetro
   }
 
-  //metodos crud para consultas
+  // métodos crud para Consultas
+  //Create Consulta
+  Future<int> insertConsulta(Consulta consulta) async{
+    final db = await database;
+    return await db.insert("consultas", consulta.toMap());
+  }
 
+  //Get Consulta -> By Pet
+  Future<List<Consulta>> getConsultaByPetId(int petId) async{
+    final db = await database;
+    final List<Map<String,dynamic>> maps = await db.query(
+      "consultas",
+      where: "pet_id = ?",
+      whereArgs: [petId],
+      orderBy: "data_hora ASC" //ordenar por data e hora da Consulta
+    ); //select from consultas where pet_id = ?, Pet_id, order by data_hora ASC
+    //converter a Maps em Obj
+    return maps.map((e)=>Consulta.fromMap(e)).toList();
+  }
+
+  //Delete Consulta
+  Future<int> deleteConsulta(int id) async{
+    final db = await database;
+    return await db.delete("consultas", where: "id=?", whereArgs: [id]);
+  }
+
+ 
 }
