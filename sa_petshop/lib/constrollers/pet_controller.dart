@@ -1,10 +1,11 @@
 import 'package:sa_petshop/models/pet_model.dart';
 import 'package:sa_petshop/services/db_helper.dart';
 
+
 class PetController {
   final DbHelper _dbHelper = DbHelper();
 
-  //metodos do controller - Slim (magros)
+  //metodos do controller - Slim (magros)    
   Future<int> createPet(Pet pet) async{
     return await _dbHelper.insertPet(pet);
   }

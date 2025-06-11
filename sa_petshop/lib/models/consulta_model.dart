@@ -1,8 +1,10 @@
 
 
+
 import 'package:intl/intl.dart';
 
 class Consulta{
+
   final int? id; //pode der nulo
   final int petId; //chave estrangeira
   final DateTime dataHora;
@@ -30,11 +32,11 @@ class Consulta{
   //fromMap() : BD => obj
   factory Consulta.fromMap(Map<String,dynamic> map) => 
     Consulta(
-      id: map["id"] as int,
+      id: map["id"] as int, // as int para converter o id para int
       petId: map["pet_id"] as int, 
       dataHora: DateTime.parse(map["data_hora"] as String), 
       tipoServico: map["tipo_servico"] as String, 
-      observacao: map["observacao"] as String);
+      observacao: map["observacao"] as String);// as String para converter o observacao para String
 
   // método de conversão de DAta e hora para formato BR (intl)
   String get dataHoraLocal {
