@@ -25,7 +25,7 @@ class LivroModel {
   factory LivroModel.fromJson(Map<String, dynamic> json) => LivroModel(
     id: json["id"].toString(),
     titulo: json["titulo"].toString(),
-    autor: json["autor"].toString(),
+    autor: json["autor"].toString(),// o
     disponivel: json["disponivel"] == true ? true : false, //operador ternario para corrigir a booleana
   );
 }

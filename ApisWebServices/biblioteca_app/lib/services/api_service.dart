@@ -7,12 +7,12 @@ class ApiService {
   //atributos e métodos da Classe e não do Obj
   // base URL para Conexão API
   //static -> transforma o atributo em atributo da classe não do obj
-  static const String _baseUrl = "http://10.109.197.12:3000";
+  static const String _baseUrl = "http://10.109.197.14:3012";
 
   //métodos
   //GET (Listar todos os Recurso)
   static Future<List<dynamic>> getList(String path) async{
-                                        //http://10.109.197.12:3000/livros
+                                        //http://10.109.197.19:3012/livros
     final res = await http.get(Uri.parse("$_baseUrl/$path")); //uri -> convert string -> URL
     //decode -> String/Json -> Dart/Map
     if(res.statusCode == 200) return json.decode(res.body); // deu certo convert as resposta de json -> list Dynamic e final
